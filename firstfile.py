@@ -4,11 +4,8 @@ import tkinter as tk
 #MAIN RUN FILE MUST ALWAYS BE IN THE BASE WORKSPACE FOLDER (TkinterProjects) 
 #ANYWHERE ELSE AND THE IMPORTS WONT WORK CORRECTLY FOR GOD KNOWS WHAT REASONS
 print("hey buddy time to start tkinter")
-ts.Testmeplz.imatest()
-number = 1
 def tkinterbuttons():
-    print("you made it")
-    labelappear = tk.Label(root,text="big boi label has appeared")
+    labelappear = tk.Label(root,text=ts.Testmeplz.imatest(1))
     if(labelappear.winfo_exists):
         labelappear.pack()
     else:
@@ -20,8 +17,10 @@ def tkinterbuttons():
 root = tk.Tk()
 text1 = tk.Label(root,text="hey buddy how ya doin in tkinter")
 text1.pack()
-firstbutton = tk.Button(root,text="big boy button",command=tkinterbuttons)
+firstbutton = tk.Button(root,text=ts.Testmeplz.imatest(2),command=tkinterbuttons,width=15,height=2)
 firstbutton.pack()
 
-root.geometry("500x760")
+#firstbutton.config(width=100,height=50)
+root.geometry("600x500")
+root.title("Tkinter Test Run")
 root.mainloop()
