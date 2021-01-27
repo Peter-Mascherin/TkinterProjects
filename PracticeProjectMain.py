@@ -38,6 +38,7 @@ def makeinputwindow():
     inputwindow = tk.Tk()
     inputlabel = tk.Label(inputwindow,text="Input text to show up on main window :)")
     inputtext = tk.Entry(inputwindow)
+    inputtext.focus()
     inputbutton = tk.Button(inputwindow,text="Submit",command=lambda: showinputtext(inputtext.get()))
     inputlabel.pack(side=TOP)
     inputtext.pack()
@@ -59,5 +60,5 @@ fourthbutton = tk.Button(root,text="Click me for Labels",command=lambda: makelab
 fifthbutton = tk.Button(root,text="Click me to open an input window",command=lambda: makeinputwindow()).pack()
 
 
-root.geometry("500x300")
+root.geometry("500x300+900+300")
 root.mainloop()
