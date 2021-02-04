@@ -15,9 +15,11 @@ def placeholdermethod():
 root = tk.Tk()
 root.configure(bg="#3F3F3F")
 #-------DECLARATION OF WIDGETS---------#
-firstlabel = tk.Label(root,text="Placeholder Label",bg=defaultbackground,fg=defaultforeground)
-firstbutton = tk.Button(root,text="Placeholder Button",command=lambda: placeholdermethod(),bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground)
+firstlabel = tk.Label(root,text="Placeholder Label")
+firstbutton = tk.Button(root,text="Placeholder Button",command=lambda: placeholdermethod())
 #-------EXTRA CONFIGURATION OF WIDGETS---------#
+firstbutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1)
+firstlabel.configure(bg=defaultbackground,fg=defaultforeground)
 #-------PLACEMENT OF WIDGETS-----------#
 firstlabel.grid(row=0,column=0,padx=10,pady=10)
 firstbutton.grid(row=0,column=1,padx=10,pady=10)
