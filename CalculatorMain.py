@@ -5,6 +5,8 @@ from tkinter.constants import *
 
 defaultbackground="#585858"
 defaultforeground="#FFE8E8"
+defaultactivebackground=defaultbackground
+defaultactiveforeground=defaultforeground
 
 def placeholdermethod():
     print("hello world")
@@ -14,7 +16,7 @@ root = tk.Tk()
 root.configure(bg="#3F3F3F")
 #-------DECLARATION OF WIDGETS---------#
 firstlabel = tk.Label(root,text="Placeholder Label",bg=defaultbackground,fg=defaultforeground)
-firstbutton = tk.Button(root,text="Placeholder Button",command=lambda: placeholdermethod(),bg=defaultbackground,fg=defaultforeground,bd=1)
+firstbutton = tk.Button(root,text="Placeholder Button",command=lambda: placeholdermethod(),bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground)
 #-------EXTRA CONFIGURATION OF WIDGETS---------#
 #-------PLACEMENT OF WIDGETS-----------#
 firstlabel.grid(row=0,column=0,padx=10,pady=10)
