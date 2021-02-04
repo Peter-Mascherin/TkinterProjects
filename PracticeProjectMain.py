@@ -54,13 +54,16 @@ def showinputtext(thetext):
     theinputtext.pack()
 
 root = Tk()
+style = ttk.Style()
+style.configure("TButton",background="red",foreground="black")
+padding = 10
 root.title("Practice Project for widgets and style")
-label = Label(root,text="Ohaiyo Gozaimas").pack()
-firstbutton = Button(root,text="Click to close!",command=buttonchange).pack()
-secondbutton = Button(root,text="Click to show message box!",command=buttonmsgbox).pack()
-thirdbutton = Button(root,text="Magic man?",command=maybenewwindow).pack()
-fourthbutton = Button(root,text="Click me for Labels",command=lambda: makelabel(1)).pack()
-fifthbutton = Button(root,text="Click me to open an input window",command=lambda: makeinputwindow()).pack()
+label = Label(root,text="Ohaiyo Gozaimas").grid(row=0,column=0,padx=padding,pady=padding)
+firstbutton = Button(root,text="Click to close!",command=buttonchange).grid(row=0,column=1,padx=padding,pady=padding)
+secondbutton = Button(root,text="Click to show message box!",command=buttonmsgbox).grid(row=0,column=2,padx=padding,pady=padding)
+thirdbutton = Button(root,text="Magic man?",command=maybenewwindow).grid(row=1,column=0,padx=padding,pady=padding)
+fourthbutton = ttk.Button(root,text="Click me for Labels",command=lambda: makelabel(1),style="TButton").grid(row=1,column=1,padx=padding,pady=padding)
+fifthbutton = Button(root,text="Click me to open an input window",command=lambda: makeinputwindow()).grid(row=1,column=2,padx=padding,pady=padding)
 
 root.geometry("500x300+900+300")
 root.mainloop()
