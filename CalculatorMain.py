@@ -47,16 +47,8 @@ zerobutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=
 firstlabel.configure(bg=defaultbackground,fg=defaultforeground)
 
 #-------GRID ROW AND COLUMN CONFIGURATION-----#
-root.rowconfigure(0,weight=1)
-root.columnconfigure(0,weight=1)
-root.rowconfigure(1,weight=1)
-root.columnconfigure(1,weight=1)
-root.rowconfigure(2,weight=1)
-root.columnconfigure(2,weight=1)
-root.rowconfigure(3,weight=1)
-root.columnconfigure(3,weight=1)
-root.rowconfigure(4,weight=1)
-root.columnconfigure(4,weight=1)
+root.rowconfigure((1,2,3,4),weight=1)
+root.columnconfigure((0,1,2,3,4),weight=1)
 
 #-------PLACEMENT OF WIDGETS-----------#
 #firstlabel.grid(row=0,column=0,columnspan=3)
@@ -76,6 +68,7 @@ zerobutton.grid(row=4,column=1,sticky=(N,S,E,W))
 root.title("Calculator App")
 root.minsize(300,300)
 root.maxsize(1000,700)
+
 root.iconbitmap(r'CalculatorResources\calculatoricon.ico')
 root.geometry("400x500")
 root.mainloop()
