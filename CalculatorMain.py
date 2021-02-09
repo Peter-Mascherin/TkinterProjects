@@ -47,20 +47,29 @@ zerobutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=
 firstlabel.configure(bg=defaultbackground,fg=defaultforeground)
 
 #-------GRID ROW AND COLUMN CONFIGURATION-----#
-
+root.rowconfigure(0,weight=1)
+root.columnconfigure(0,weight=1)
+root.rowconfigure(1,weight=1)
+root.columnconfigure(1,weight=1)
+root.rowconfigure(2,weight=1)
+root.columnconfigure(2,weight=1)
+root.rowconfigure(3,weight=1)
+root.columnconfigure(3,weight=1)
+root.rowconfigure(4,weight=1)
+root.columnconfigure(4,weight=1)
 
 #-------PLACEMENT OF WIDGETS-----------#
 #firstlabel.grid(row=0,column=0,columnspan=3)
-onebutton.grid(row=1,column=0)
-twobutton.grid(row=1,column=1)
-threebutton.grid(row=1,column=2)
-fourbutton.grid(row=2,column=0)
-fivebutton.grid(row=2,column=1)
-sixbutton.grid(row=2,column=2)
-sevenbutton.grid(row=3,column=0)
-eightbutton.grid(row=3,column=1)
-ninebutton.grid(row=3,column=2)
-zerobutton.grid(row=4,column=1)
+onebutton.grid(row=1,column=0,sticky=(N,S,E,W))
+twobutton.grid(row=1,column=1,sticky=(N,S,E,W))
+threebutton.grid(row=1,column=2,sticky=(N,S,E,W))
+fourbutton.grid(row=2,column=0,sticky=(N,S,E,W))
+fivebutton.grid(row=2,column=1,sticky=(N,S,E,W))
+sixbutton.grid(row=2,column=2,sticky=(N,S,E,W))
+sevenbutton.grid(row=3,column=0,sticky=(N,S,E,W))
+eightbutton.grid(row=3,column=1,sticky=(N,S,E,W))
+ninebutton.grid(row=3,column=2,sticky=(N,S,E,W))
+zerobutton.grid(row=4,column=1,sticky=(N,S,E,W))
 
 
 #-------MAINLOOP ROOT SPECIFICATIONS----------#
