@@ -1,13 +1,18 @@
 #Peter Mascherin
 #this project will be an ongoing project to make a functional, styled calculator to the best of my ability
+
+
 import tkinter as tk
 from tkinter.constants import *
 
+
+#----DECLARATION OF BASE GLOBAL VARIABLES-------#
 defaultbackground="#585858"
 defaultforeground="#FFE8E8"
 defaultactivebackground=defaultbackground
 defaultactiveforeground=defaultforeground
 
+#-------DECLARATION OF METHODS--------#
 def placeholdermethod():
     print("hello world")
 
@@ -16,15 +21,52 @@ root = tk.Tk()
 root.configure(bg="#3F3F3F")
 #-------DECLARATION OF WIDGETS---------#
 firstlabel = tk.Label(root,text="Placeholder Label")
-firstbutton = tk.Button(root,text="Placeholder Button",command=lambda: placeholdermethod())
+onebutton = tk.Button(root,text="1",command=lambda: placeholdermethod())
+twobutton = tk.Button(root,text="2")
+threebutton = tk.Button(root,text="3")
+fourbutton = tk.Button(root,text="4")
+fivebutton = tk.Button(root,text="5")
+sixbutton = tk.Button(root,text="6")
+sevenbutton = tk.Button(root,text="7")
+eightbutton = tk.Button(root,text="8")
+ninebutton = tk.Button(root,text="9")
+zerobutton = tk.Button(root,text="0")
+
+
 #-------EXTRA CONFIGURATION OF WIDGETS---------#
-firstbutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1)
+onebutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5)
+twobutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5)
+threebutton.configure(bg=defaultbackground,fg=defaultactiveforeground,activeforeground=defaultactiveforeground,activebackground=defaultactivebackground,bd=1,width=12,height=5)
+fourbutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5)
+fivebutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5)
+sixbutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5)
+sevenbutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5)
+eightbutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5)
+ninebutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5)
+zerobutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5)
 firstlabel.configure(bg=defaultbackground,fg=defaultforeground)
+
+#-------GRID ROW AND COLUMN CONFIGURATION-----#
+
+
 #-------PLACEMENT OF WIDGETS-----------#
-firstlabel.grid(row=0,column=0,padx=10,pady=10)
-firstbutton.grid(row=0,column=1,padx=10,pady=10)
+#firstlabel.grid(row=0,column=0,columnspan=3)
+onebutton.grid(row=1,column=0)
+twobutton.grid(row=1,column=1)
+threebutton.grid(row=1,column=2)
+fourbutton.grid(row=2,column=0)
+fivebutton.grid(row=2,column=1)
+sixbutton.grid(row=2,column=2)
+sevenbutton.grid(row=3,column=0)
+eightbutton.grid(row=3,column=1)
+ninebutton.grid(row=3,column=2)
+zerobutton.grid(row=4,column=1)
+
+
 #-------MAINLOOP ROOT SPECIFICATIONS----------#
 root.title("Calculator App")
+root.minsize(300,300)
+root.maxsize(1000,700)
 root.iconbitmap(r'CalculatorResources\calculatoricon.ico')
-root.geometry("500x300")
+root.geometry("400x500")
 root.mainloop()
