@@ -5,7 +5,7 @@
 import tkinter as tk
 from tkinter.constants import *
 from tkinter.font import Font
-from typing import SupportsBytes
+
 
 
 
@@ -22,20 +22,27 @@ defaultstring = tk.StringVar()
 def concatstrings(mybutton):
     grabtext = defaultstring.get() + mybutton.cget('text')
     defaultstring.set(grabtext)
-    firstlabel.config(text=defaultstring.get())
+    numberlabel.config(text=defaultstring.get())
     
 def clearstring(clearbutton):
     defaultstring.set("")
-    firstlabel.config(text="")
+    numberlabel.config(text="Input Numbers...")
 
 def adding():    
-    thenum = int(defaultstring.get())
-    firstlabel.config(text=(thenum * 2))
+    defaultstring.set(defaultstring.get() + "+")
+    numberlabel.config(text=defaultstring.get())
+    
+
+def results():
+    resultsum = eval(defaultstring.get())
+    numberlabel.config(text=resultsum)
+    defaultstring.set("")
+
 
 root.configure(bg="#3F3F3F")
 thefont = Font(family="Helvetica",size=36)
 #-------DECLARATION OF WIDGETS---------#
-firstlabel = tk.Label(root,text="Input Numbers...")
+numberlabel = tk.Label(root,text="Input Numbers...")
 onebutton = tk.Button(root,text="1",command=lambda: concatstrings(onebutton))
 twobutton = tk.Button(root,text="2",command=lambda: concatstrings(twobutton))
 threebutton = tk.Button(root,text="3",command=lambda: concatstrings(threebutton))
@@ -49,9 +56,9 @@ zerobutton = tk.Button(root,text="0",command=lambda: concatstrings(zerobutton))
 clearbutton = tk.Button(root,text="C",command=lambda: clearstring(clearbutton))
 dividebutton = tk.Button(root,text="÷")
 multiplybutton = tk.Button(root,text="*")
-addbutton = tk.Button(root,text="+")
+addbutton = tk.Button(root,text="+",command=lambda: adding())
 subtractbutton = tk.Button(root,text="-")
-equalsbutton = tk.Button(root,text="=",command=lambda: adding())
+equalsbutton = tk.Button(root,text="=",command=lambda: results())
 
 
 #-------EXTRA CONFIGURATION OF WIDGETS---------#
@@ -71,14 +78,14 @@ dividebutton.configure(bg=defaultbackground,fg=defaultforeground,activebackgroun
 multiplybutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5,font=thefont)
 addbutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5,font=thefont)
 subtractbutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5,font=thefont)
-firstlabel.configure(bg=defaultbackground,fg=defaultforeground,font=thefont)
+numberlabel.configure(bg=root.cget('bg'),fg=defaultforeground,font=thefont)
 
 #-------GRID ROW AND COLUMN CONFIGURATION-----#
 root.rowconfigure((1,2,3,4),weight=1)
 root.columnconfigure((0,1,2,3,4),weight=1)
 
 #-------PLACEMENT OF WIDGETS-----------#
-firstlabel.grid(row=0,column=0,columnspan=4)
+numberlabel.grid(row=0,column=0,columnspan=4)
 onebutton.grid(row=1,column=0,sticky=(N,S,E,W),pady=2,padx=2)
 twobutton.grid(row=1,column=1,sticky=(N,S,E,W),pady=2,padx=2)
 threebutton.grid(row=1,column=2,sticky=(N,S,E,W),pady=2,padx=2)
