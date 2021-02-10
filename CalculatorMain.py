@@ -5,6 +5,7 @@
 import tkinter as tk
 from tkinter.constants import *
 from tkinter.font import Font
+import winsound
 
 
 
@@ -23,10 +24,12 @@ def concatstrings(mybutton):
     grabtext = defaultstring.get() + mybutton.cget('text')
     defaultstring.set(grabtext)
     numberlabel.config(text=defaultstring.get())
+    playsound()
     
 def clearstring(clearbutton):
     defaultstring.set("")
     numberlabel.config(text="Input Numbers...")
+    playsound()
 
 def arimeticconcat(aributton):
     if(aributton.cget('text') == '÷'):
@@ -35,13 +38,17 @@ def arimeticconcat(aributton):
         defaultstring.set(defaultstring.get() + aributton.cget('text'))
 
     numberlabel.config(text=defaultstring.get())
+    playsound()
     
 
 def results():
     resultsum = eval(defaultstring.get())
     numberlabel.config(text=resultsum)
     defaultstring.set("")
+    playsound()
 
+def playsound():
+    winsound.PlaySound(r"CalculatorResources\buttonclickwav",winsound.SND_FILENAME)
 
 root.configure(bg="#3F3F3F")
 thefont = Font(family="Helvetica",size=36)
@@ -110,8 +117,8 @@ subtractbutton.grid(row=4,column=3,sticky=(N,S,E,W),padx=2,pady=2)
 
 #-------MAINLOOP ROOT SPECIFICATIONS----------#
 root.title("Calculator App")
-root.minsize(300,300)
-root.maxsize(1000,700)
+root.minsize(400,300)
+root.maxsize(800,600)
 
 root.iconbitmap(r'CalculatorResources\calculatoricon.ico')
 root.geometry("400x500")
