@@ -4,6 +4,8 @@
 
 import tkinter as tk
 from tkinter.constants import *
+from tkinter.font import Font
+
 
 
 #----DECLARATION OF BASE GLOBAL VARIABLES-------#
@@ -19,6 +21,7 @@ def placeholdermethod():
 
 root = tk.Tk()
 root.configure(bg="#3F3F3F")
+thefont = Font(family="Helvetica",size=36)
 #-------DECLARATION OF WIDGETS---------#
 firstlabel = tk.Label(root,text="Placeholder Label")
 onebutton = tk.Button(root,text="1",command=lambda: placeholdermethod())
@@ -34,34 +37,34 @@ zerobutton = tk.Button(root,text="0")
 
 
 #-------EXTRA CONFIGURATION OF WIDGETS---------#
-onebutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5)
-twobutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5)
-threebutton.configure(bg=defaultbackground,fg=defaultactiveforeground,activeforeground=defaultactiveforeground,activebackground=defaultactivebackground,bd=1,width=12,height=5)
-fourbutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5)
-fivebutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5)
-sixbutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5)
-sevenbutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5)
-eightbutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5)
-ninebutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5)
-zerobutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5)
-firstlabel.configure(bg=defaultbackground,fg=defaultforeground)
+onebutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5,font=thefont)
+twobutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5,font=thefont)
+threebutton.configure(bg=defaultbackground,fg=defaultactiveforeground,activeforeground=defaultactiveforeground,activebackground=defaultactivebackground,bd=1,width=12,height=5,font=thefont)
+fourbutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5,font=thefont)
+fivebutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5,font=thefont)
+sixbutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5,font=thefont)
+sevenbutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5,font=thefont)
+eightbutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5,font=thefont)
+ninebutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5,font=thefont)
+zerobutton.configure(bg=defaultbackground,fg=defaultforeground,activebackground=defaultactivebackground,activeforeground=defaultactiveforeground,bd=1,width=12,height=5,font=thefont)
+firstlabel.configure(bg=defaultbackground,fg=defaultforeground,font=thefont)
 
 #-------GRID ROW AND COLUMN CONFIGURATION-----#
 root.rowconfigure((1,2,3,4),weight=1)
 root.columnconfigure((0,1,2,3,4),weight=1)
 
 #-------PLACEMENT OF WIDGETS-----------#
-#firstlabel.grid(row=0,column=0,columnspan=3)
-onebutton.grid(row=1,column=0,sticky=(N,S,E,W))
-twobutton.grid(row=1,column=1,sticky=(N,S,E,W))
-threebutton.grid(row=1,column=2,sticky=(N,S,E,W))
-fourbutton.grid(row=2,column=0,sticky=(N,S,E,W))
-fivebutton.grid(row=2,column=1,sticky=(N,S,E,W))
-sixbutton.grid(row=2,column=2,sticky=(N,S,E,W))
-sevenbutton.grid(row=3,column=0,sticky=(N,S,E,W))
-eightbutton.grid(row=3,column=1,sticky=(N,S,E,W))
-ninebutton.grid(row=3,column=2,sticky=(N,S,E,W))
-zerobutton.grid(row=4,column=1,sticky=(N,S,E,W))
+firstlabel.grid(row=0,column=0,columnspan=3)
+onebutton.grid(row=1,column=0,sticky=(N,S,E,W),pady=2,padx=2)
+twobutton.grid(row=1,column=1,sticky=(N,S,E,W),pady=2,padx=2)
+threebutton.grid(row=1,column=2,sticky=(N,S,E,W),pady=2,padx=2)
+fourbutton.grid(row=2,column=0,sticky=(N,S,E,W),pady=2,padx=2)
+fivebutton.grid(row=2,column=1,sticky=(N,S,E,W),pady=2,padx=2)
+sixbutton.grid(row=2,column=2,sticky=(N,S,E,W),pady=2,padx=2)
+sevenbutton.grid(row=3,column=0,sticky=(N,S,E,W),pady=2,padx=2)
+eightbutton.grid(row=3,column=1,sticky=(N,S,E,W),pady=2,padx=2)
+ninebutton.grid(row=3,column=2,sticky=(N,S,E,W),pady=2,padx=2)
+zerobutton.grid(row=4,column=1,sticky=(N,S,E,W),pady=2,padx=2)
 
 
 #-------MAINLOOP ROOT SPECIFICATIONS----------#
