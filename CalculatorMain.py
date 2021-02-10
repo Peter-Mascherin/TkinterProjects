@@ -28,8 +28,12 @@ def clearstring(clearbutton):
     defaultstring.set("")
     numberlabel.config(text="Input Numbers...")
 
-def adding():    
-    defaultstring.set(defaultstring.get() + "+")
+def arimeticconcat(aributton):
+    if(aributton.cget('text') == '÷'):
+        defaultstring.set(defaultstring.get() + "/")
+    else:
+        defaultstring.set(defaultstring.get() + aributton.cget('text'))
+
     numberlabel.config(text=defaultstring.get())
     
 
@@ -54,10 +58,10 @@ eightbutton = tk.Button(root,text="8",command=lambda: concatstrings(eightbutton)
 ninebutton = tk.Button(root,text="9",command=lambda: concatstrings(ninebutton))
 zerobutton = tk.Button(root,text="0",command=lambda: concatstrings(zerobutton))
 clearbutton = tk.Button(root,text="C",command=lambda: clearstring(clearbutton))
-dividebutton = tk.Button(root,text="÷")
-multiplybutton = tk.Button(root,text="*")
-addbutton = tk.Button(root,text="+",command=lambda: adding())
-subtractbutton = tk.Button(root,text="-")
+dividebutton = tk.Button(root,text="÷",command=lambda: arimeticconcat(dividebutton))
+multiplybutton = tk.Button(root,text="*",command=lambda: arimeticconcat(multiplybutton))
+addbutton = tk.Button(root,text="+",command=lambda: arimeticconcat(addbutton))
+subtractbutton = tk.Button(root,text="-",command=lambda: arimeticconcat(subtractbutton))
 equalsbutton = tk.Button(root,text="=",command=lambda: results())
 
 
