@@ -20,18 +20,18 @@ defaultstring = tk.StringVar()
 
 
 #-------DECLARATION OF METHODS--------#
-def concatstrings(mybutton):
+def concatstrings(mybutton): #concat method to connect the values of each button (1 - 9) to create the values
     grabtext = defaultstring.get() + mybutton.cget('text')
     defaultstring.set(grabtext)
     numberlabel.config(text=defaultstring.get())
     playsound()
     
-def clearstring(clearbutton):
+def clearstring(clearbutton): #Clear string method clears the calculator label and to accept new inputs
     defaultstring.set("")
     numberlabel.config(text="Input Numbers...")
     playsound()
 
-def arimeticconcat(aributton):
+def arimeticconcat(aributton): #takes the current defaultstring and concats the arimetic onto it ( *, / , -, +) to create expressions
     if(aributton.cget('text') == '÷'):
         defaultstring.set(defaultstring.get() + "/")
     else:
@@ -41,13 +41,13 @@ def arimeticconcat(aributton):
     playsound()
     
 
-def results():
+def results(): #the evaluation method to make the caluclator function, sends defaultstring to eval() method to calculator th expression
     resultsum = eval(defaultstring.get())
     numberlabel.config(text=resultsum)
     defaultstring.set("")
     playsound()
 
-def playsound():
+def playsound(): #plays sound on button press to create feedback to user
     winsound.PlaySound(r"CalculatorResources\buttonclickwav",winsound.SND_FILENAME)
 
 root.configure(bg="#3F3F3F")
