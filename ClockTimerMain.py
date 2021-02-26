@@ -15,8 +15,11 @@ rootbackground = "#363535"
 def clockupdate():
     
     timestring = datetime.today().strftime("%I:%M:%S %p %Z")
-    clocklabel.config(text=timestring[1:])
-    clocklabel.after(100,clockupdate)
+    if(timestring[0] == "0"):
+        clocklabel.config(text=timestring[1:])
+    else:
+        clocklabel.config(text=timestring)
+    clocklabel.after(10,clockupdate)
 
 def stopwatchupdate():
     stopwatchstring = datetime.today().strftime('%I:%M:%S:%f')[:-3]
