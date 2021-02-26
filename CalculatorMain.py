@@ -26,7 +26,7 @@ def concatstrings(mybutton): #concat method to connect the values of each button
     numberlabel.config(text=defaultstring.get())
     playsound()
     
-def clearstring(clearbutton): #Clear string method clears the calculator label and to accept new inputs
+def clearstring(): #Clear string method clears the calculator label and to accept new inputs
     defaultstring.set("")
     numberlabel.config(text="Input Numbers...")
     playsound()
@@ -42,9 +42,13 @@ def arimeticconcat(aributton): #takes the current defaultstring and concats the 
     
 
 def results(): #the evaluation method to make the caluclator function, sends defaultstring to eval() method to calculator th expression
-    resultsum = eval(defaultstring.get())
-    numberlabel.config(text=resultsum)
-    defaultstring.set("")
+    try:
+        resultsum = eval(defaultstring.get())
+        numberlabel.config(text=resultsum)
+        defaultstring.set("")
+    except:
+        numberlabel.configure(text="Calculator Error")
+        numberlabel.after(2000,clearstring)
     playsound()
 
 def playsound(): #plays sound on button press to create feedback to user
@@ -64,7 +68,7 @@ sevenbutton = tk.Button(root,text="7",command=lambda: concatstrings(sevenbutton)
 eightbutton = tk.Button(root,text="8",command=lambda: concatstrings(eightbutton))
 ninebutton = tk.Button(root,text="9",command=lambda: concatstrings(ninebutton))
 zerobutton = tk.Button(root,text="0",command=lambda: concatstrings(zerobutton))
-clearbutton = tk.Button(root,text="C",command=lambda: clearstring(clearbutton))
+clearbutton = tk.Button(root,text="C",command=lambda: clearstring())
 dividebutton = tk.Button(root,text="÷",command=lambda: arimeticconcat(dividebutton))
 multiplybutton = tk.Button(root,text="*",command=lambda: arimeticconcat(multiplybutton))
 addbutton = tk.Button(root,text="+",command=lambda: arimeticconcat(addbutton))
