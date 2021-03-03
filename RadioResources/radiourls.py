@@ -21,6 +21,10 @@ urls = '''{
         {
             "radiourl": "http://pulseedm.cdnstream1.com:8124/1373_128",
             "radioname":    "Pulse EDM"
+        },
+        {
+            "radiourl": "http://newcap.leanstream.co/CHBMFM-MP3?args=tunein_01",
+            "radioname":    "Boom 97.3"
         }
 
     ]

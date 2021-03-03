@@ -9,18 +9,59 @@ import time
 import json
 import RadioResources.radiourls as rad
 
+channelnumber = 0
+
 #METHODS
 def stopmedia():
-    media.stop()
+    player.stop()
 
 def pausemedia():
-    media.pause()
+    player.pause()
 
 def playmedia():
-    media.play()
+    player.set_media(theaudio)
+    player.play()
     
-def switchstation():
-    print('yp')
+
+
+
+#issue solved with incrementing and setting new media , media channels are overlapping tho, might have to do media.release
+#probably an issue with instances, since when media object is created in playmedia, stopmedia doesnt work
+#another issue with callback to switchmedia when reaching end of index, might have to rewrite
+#have to rewrite the switchstation() logic , try except wont work
+def switchstation(switchnum):
+    global channelnumber
+    try:
+        if(switchnum == 1):
+            channelnumber = channelnumber + 1
+            print("you got here heres the channelnum ", channelnumber)
+            stopmedia()
+            setupmedia(channelnumber)
+            playmedia()
+        else:
+            channelnumber = channelnumber - 1
+            stopmedia()
+            setupmedia(channelnumber)
+            playmedia()
+    except:
+        if(channelnumber < 0):
+            channelnumber = len(urlstore) - 1
+            stopmedia()
+            setupmedia()
+            playmedia()
+        elif(channelnumber > (len(urlstore)-1)):
+            channelnumber = 0
+            stopmedia()
+            setupmedia()
+            playmedia()
+
+def setupmedia(channelnumber):
+    global theaudio
+    theaudio.release()
+    theaudio = vlc.Media(urlstore[channelnumber])
+    print(urlstore[channelnumber])
+
+    
 
 #WIDGET DECLARATION
 root = tk.Tk()
@@ -33,8 +74,8 @@ custfont = Font(family="Helivetica",size=24)
 playbutton = tk.Button(root,image=playimage,command=lambda:playmedia(),bg="#3D3939",fg="#FFFFFF",activeforeground="#FFFFFF",activebackground="#3D3939",height=40,bd=0)
 pausebutton = tk.Button(root,image=pauseimage,command=lambda:pausemedia(),bg="#3D3939",fg="#FFFFFF",activeforeground="#FFFFFF",activebackground="#3D3939",height=40,bd=0)
 stopbutton = tk.Button(root,image=stopimage,command=lambda:stopmedia(),bg="#3D3939",fg="#FFFFFF",activeforeground="#FFFFFF",activebackground="#3D3939",height=40,bd=0)
-nextbutton = tk.Button(root,image=fowardimage,command=lambda:switchstation(),bg="#3D3939",fg="#FFFFFF",activeforeground="#FFFFFF",activebackground="#3D3939",height=40,bd=0)
-previousbutton = tk.Button(root,image=backimage,command=lambda:switchstation(),bg="#3D3939",fg="#FFFFFF",activeforeground="#FFFFFF",activebackground="#3D3939",height=40,bd=0)
+nextbutton = tk.Button(root,image=fowardimage,command=lambda:switchstation(1),bg="#3D3939",fg="#FFFFFF",activeforeground="#FFFFFF",activebackground="#3D3939",height=40,bd=0)
+previousbutton = tk.Button(root,image=backimage,command=lambda:switchstation(-1),bg="#3D3939",fg="#FFFFFF",activeforeground="#FFFFFF",activebackground="#3D3939",height=40,bd=0)
 testtext = tk.Label(root,text="font change me",font=custfont,fg="#FFFFFF",bg="#3D3939")
 
 
@@ -53,8 +94,9 @@ datad = json.loads(rad.urls)
 urlstore = []
 for url in datad['stations']:
     urlstore.append(url['radiourl'])
-media = vlc.MediaPlayer(urlstore[4])
-media.audio_set_volume(80)
+theaudio = vlc.Media(urlstore[channelnumber])
+player = vlc.MediaPlayer()
+player.audio_set_volume(80)
 
 
 #ROOT CONFIGURATION
