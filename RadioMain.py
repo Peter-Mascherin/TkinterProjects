@@ -17,6 +17,15 @@ statustextcolour = "#1ED760"
 
 
 #METHODS
+# simple print debug checking for checking variables on play , stop , and switch
+def debugchecker():
+    print(urlstore[channelnumber])
+    print(stationstore[channelnumber])
+    print(channelnumber)
+
+# to switch between frames (currently homescreen, in future settings and suggestions)
+def switchframe(framing):
+    framing.tkraise()
 
 # stopmedia simple changes status to 'Currently Stopped' and stops the player (whichs cut off connection to stream)
 def stopmedia():
@@ -37,7 +46,7 @@ def playmedia():
     radionametext.configure(text=rnamestring)
     statustext.configure(text="Currently Playing...")
     player.play()
-    print(urlstore[channelnumber])
+    debugchecker()
     
 
 #have to rewrite the switchstation() logic , try except wont work
@@ -45,28 +54,14 @@ def playmedia():
 # then stops the current audio with stopmedia(), setups the new media to play in setupmedia(), and then calls playmedia()
 def switchstation(switchnum):
     global channelnumber
-    try:
-        if(switchnum == 1):
-            channelnumber = channelnumber + 1
-            stopmedia()
-            setupmedia(channelnumber)
-            playmedia()
-        else:
-            channelnumber = channelnumber - 1
-            stopmedia()
-            setupmedia(channelnumber)
-            playmedia()
-    except:
-        if(channelnumber < 0):
-            channelnumber = len(urlstore) - 1
-            stopmedia()
-            setupmedia()
-            playmedia()
-        elif(channelnumber > (len(urlstore)-1)):
-            channelnumber = 0
-            stopmedia()
-            setupmedia()
-            playmedia()
+    channelnumber = channelnumber + switchnum
+    if(channelnumber < 0):
+        channelnumber = (len(urlstore)-1)
+    elif(channelnumber > (len(urlstore)-1)):
+        channelnumber = 0
+    stopmedia()
+    setupmedia(channelnumber)
+    playmedia()
 
 # declares global variable theaudio, releases the current url (which feels the wrong way to do it but i dont know another way) 
 # and sets audio to new url(1 foward or 1 behind)
@@ -78,20 +73,25 @@ def setupmedia(channelnumber):
 
 #WIDGET DECLARATION
 root = tk.Tk()
+homescreenframe = tk.Frame(root)
+settingsframe = tk.Frame(root)
 fowardimage = tk.PhotoImage(file="RadioResources/foward.png")
 backimage = tk.PhotoImage(file="RadioResources/back.png")
 stopimage = tk.PhotoImage(file="RadioResources/stop.png")
 pauseimage = tk.PhotoImage(file="RadioResources/pause.png")
 playimage = tk.PhotoImage(file="RadioResources/play.png")
-stationfont = Font(family="Helivetica",size=36)
-statusfont = Font(family="Helvetica",size=12)
-playbutton = tk.Button(root,image=playimage,command=lambda:playmedia(),bg=basebgcolour,activebackground=basebgcolour,height=40,bd=0)
-pausebutton = tk.Button(root,image=pauseimage,command=lambda:pausemedia(),bg=basebgcolour,activebackground=basebgcolour,height=40,bd=0)
-stopbutton = tk.Button(root,image=stopimage,command=lambda:stopmedia(),bg=basebgcolour,activebackground=basebgcolour,height=40,bd=0)
-nextbutton = tk.Button(root,image=fowardimage,command=lambda:switchstation(1),bg=basebgcolour,activebackground=basebgcolour,height=40,bd=0)
-previousbutton = tk.Button(root,image=backimage,command=lambda:switchstation(-1),bg=basebgcolour,activebackground=basebgcolour,height=40,bd=0)
-radionametext = tk.Label(root,text="Python Internet Radio",font=stationfont,fg=stationtextcolour,bg=basebgcolour)
-statustext = tk.Label(root,text="Ready to Play",font=statusfont,fg=statustextcolour,bg=basebgcolour)
+stationfont = Font(family="Bahnschrift SemiBold",size=36)
+statusfont = Font(family="Bahnschrift SemiBold",size=12)
+playbutton = tk.Button(homescreenframe,image=playimage,command=lambda:playmedia(),bg=basebgcolour,activebackground=basebgcolour,height=40,bd=0)
+pausebutton = tk.Button(homescreenframe,image=pauseimage,command=lambda:pausemedia(),bg=basebgcolour,activebackground=basebgcolour,height=40,bd=0)
+stopbutton = tk.Button(homescreenframe,image=stopimage,command=lambda:stopmedia(),bg=basebgcolour,activebackground=basebgcolour,height=40,bd=0)
+nextbutton = tk.Button(homescreenframe,image=fowardimage,command=lambda:switchstation(1),bg=basebgcolour,activebackground=basebgcolour,height=40,bd=0)
+previousbutton = tk.Button(homescreenframe,image=backimage,command=lambda:switchstation(-1),bg=basebgcolour,activebackground=basebgcolour,height=40,bd=0)
+radionametext = tk.Label(homescreenframe,text="Python Internet Radio",font=stationfont,fg=stationtextcolour,bg=basebgcolour)
+statustext = tk.Label(homescreenframe,text="Ready to Play",font=statusfont,fg=statustextcolour,bg=basebgcolour)
+homefromsettings = tk.Button(settingsframe,text="go home",command=lambda:switchframe(homescreenframe))
+settingsbutton = tk.Button(homescreenframe,text="go settings",command=lambda:switchframe(settingsframe),height=4,bd=1)
+stopfromsettings = tk.Button(settingsframe,text="stopmusic plz thx",command=lambda:stopmedia())
 
 
 #WIDGET PLACEMENT
@@ -101,7 +101,11 @@ stopbutton.grid(row=3,column=0,sticky=(S,E,W),pady=6,padx=2)
 nextbutton.grid(row=2,column=2,sticky=(E,W),pady=25,padx=6,rowspan=3)
 previousbutton.grid(row=2,column=0,sticky=(E,W),pady=25,padx=6,rowspan=3)
 radionametext.grid(row=0,column=0,sticky=(N,W,S),padx=10,pady=0,columnspan=3)
-statustext.grid(row=1,column=0,sticky=(N,W),pady=0,padx=25,columnspan=3)
+statustext.grid(row=1,column=0,sticky=(N,W),pady=0,padx=15,columnspan=3)
+homefromsettings.grid(row=1,column=1,sticky=(N,S,E,W))
+stopfromsettings.grid(row=2,column=2,sticky=(S,E))
+#settingsbutton.grid(row=1,column=2,sticky=(N,E,W),rowspan=2)
+
 
 #JSON DATA GRAB
 datad = json.loads(rad.urls) #loads the JSON list into datad
@@ -118,10 +122,20 @@ theaudio = vlc.Media(urlstore[channelnumber])
 player = vlc.MediaPlayer()
 player.audio_set_volume(80)
 
-
+#HOMESCREEN CONFIGURATION
+homescreenframe.rowconfigure((0,1,2,3),weight=1)
+homescreenframe.columnconfigure((0,1,2),weight=1)
+homescreenframe.configure(bg=basebgcolour,width=750,height=300)
+homescreenframe.grid(row=0,column=0,sticky=(N,S,E,W))
+switchframe(homescreenframe)
+#SETTINGS SCREEN CONFIGURATION
+settingsframe.rowconfigure((0,1,2,3),weight=1)
+settingsframe.columnconfigure((0,1,2),weight=1)
+settingsframe.configure(bg=basebgcolour,width=750,height=300)
+settingsframe.grid(row=0,column=0,sticky=(N,S,E,W))
 #ROOT CONFIGURATION
-root.rowconfigure((0,1,2,3),weight=1)
-root.columnconfigure((0,1,2),weight=1)
+root.rowconfigure((0),weight=1)
+root.columnconfigure((0),weight=1)
 root.configure(bg=basebgcolour)
 root.resizable(FALSE,FALSE)
 root.iconbitmap(r"RadioResources\radioicon.ico")
