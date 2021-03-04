@@ -101,7 +101,7 @@ stopbutton.grid(row=3,column=0,sticky=(S,E,W),pady=6,padx=2)
 nextbutton.grid(row=2,column=2,sticky=(E,W),pady=25,padx=6,rowspan=3)
 previousbutton.grid(row=2,column=0,sticky=(E,W),pady=25,padx=6,rowspan=3)
 radionametext.grid(row=0,column=0,sticky=(N,W,S),padx=10,pady=0,columnspan=3)
-statustext.grid(row=1,column=0,sticky=(N,W),pady=0,padx=10,columnspan=3)
+statustext.grid(row=1,column=0,sticky=(N,W),pady=0,padx=25,columnspan=3)
 
 #JSON DATA GRAB
 datad = json.loads(rad.urls) #loads the JSON list into datad
