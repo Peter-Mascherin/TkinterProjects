@@ -4,6 +4,7 @@
 import tkinter as tk
 from tkinter.font import *
 from tkinter.constants import *
+from tkinter import messagebox
 import vlc # install this module using this: pip install python-vlc 
 #(you also need the 64-bit version of VLC installed which can be downloaded here https://get.videolan.org/vlc/3.0.11/win64/vlc-3.0.11-win64.exe)
 import time
@@ -39,13 +40,15 @@ def pausemedia():
 
 # playmedia sets sets the audio into MediaPlayer variable, 
 # changes the radioname and statustext labels to current stations and current status(playing,paused,stopped)
-# and then plays the media (print statement for debugging)
+# and then plays the media and also displays an error message if stream is revoked (print statement for debugging)
 def playmedia():
     player.set_media(theaudio)
     rnamestring = str(stationstore[channelnumber])
     radionametext.configure(text=rnamestring)
     statustext.configure(text="Currently Playing...")
-    player.play()
+    playcheck = player.play()
+    if(playcheck == -1):
+        messagebox.showerror("Playback Error","This probably happened due to a access revoked stream, wait a minute or so and click play again, or restart the app after waiting")
     #debugchecker()
 
 # controls the volume   
