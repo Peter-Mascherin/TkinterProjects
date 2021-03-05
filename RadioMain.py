@@ -46,8 +46,12 @@ def playmedia():
     radionametext.configure(text=rnamestring)
     statustext.configure(text="Currently Playing...")
     player.play()
-    debugchecker()
-    
+    #debugchecker()
+
+# controls the volume   
+def volumecontrol(volume):
+    player.audio_set_volume(int(volume))
+
 
 #have to rewrite the switchstation() logic , try except wont work
 # switchstation checks the global channelnumber (if its out of array bounds or negative) and corrects if needed
@@ -87,6 +91,7 @@ pausebutton = tk.Button(homescreenframe,image=pauseimage,command=lambda:pausemed
 stopbutton = tk.Button(homescreenframe,image=stopimage,command=lambda:stopmedia(),bg=basebgcolour,activebackground=basebgcolour,height=40,bd=0)
 nextbutton = tk.Button(homescreenframe,image=fowardimage,command=lambda:switchstation(1),bg=basebgcolour,activebackground=basebgcolour,height=40,bd=0)
 previousbutton = tk.Button(homescreenframe,image=backimage,command=lambda:switchstation(-1),bg=basebgcolour,activebackground=basebgcolour,height=40,bd=0)
+volumeslider = tk.Scale(homescreenframe,from_=0,to=100,tickinterval=0,orient=HORIZONTAL,label="Volume",bg=basebgcolour,fg=stationtextcolour,command=volumecontrol)
 radionametext = tk.Label(homescreenframe,text="Python Internet Radio",font=stationfont,fg=stationtextcolour,bg=basebgcolour)
 statustext = tk.Label(homescreenframe,text="Ready to Play",font=statusfont,fg=statustextcolour,bg=basebgcolour)
 homefromsettings = tk.Button(settingsframe,text="go home",command=lambda:switchframe(homescreenframe))
@@ -95,11 +100,12 @@ stopfromsettings = tk.Button(settingsframe,text="stopmusic plz thx",command=lamb
 
 
 #WIDGET PLACEMENT
-playbutton.grid(row=3,column=1,sticky=(S,W,E),pady=6,padx=2)
-pausebutton.grid(row=3,column=2,sticky=(S,E,W),pady=6,padx=2)
-stopbutton.grid(row=3,column=0,sticky=(S,E,W),pady=6,padx=2)
+playbutton.grid(row=3,column=1,sticky=(S,W,E),padx=4,pady=10)
+pausebutton.grid(row=3,column=2,sticky=(S,E,W),pady=10,padx=2)
+stopbutton.grid(row=3,column=0,sticky=(S,E,W),pady=10,padx=2)
 nextbutton.grid(row=2,column=2,sticky=(E,W),pady=25,padx=6,rowspan=3)
 previousbutton.grid(row=2,column=0,sticky=(E,W),pady=25,padx=6,rowspan=3)
+volumeslider.grid(row=2,column=1,sticky=(E,W),padx=5,pady=70,rowspan=2)
 radionametext.grid(row=0,column=0,sticky=(N,W,S),padx=10,pady=0,columnspan=3)
 statustext.grid(row=1,column=0,sticky=(N,W),pady=0,padx=15,columnspan=3)
 homefromsettings.grid(row=1,column=1,sticky=(N,S,E,W))
@@ -120,7 +126,10 @@ for url in datad['stations']: #loops through the 'stations' object in datad JSON
 #VLC MEDIA CONFIGURATION 
 theaudio = vlc.Media(urlstore[channelnumber])
 player = vlc.MediaPlayer()
-player.audio_set_volume(80)
+player.audio_set_volume(75)
+volumeslider.configure(activebackground=basebgcolour,troughcolor=stationtextcolour,highlightthickness=0,length=50,font=statusfont,sliderrelief=FLAT,bd=0)
+volumeslider.set(75)
+
 
 #HOMESCREEN CONFIGURATION
 homescreenframe.rowconfigure((0,1,2,3),weight=1)
@@ -128,11 +137,13 @@ homescreenframe.columnconfigure((0,1,2),weight=1)
 homescreenframe.configure(bg=basebgcolour,width=750,height=300)
 homescreenframe.grid(row=0,column=0,sticky=(N,S,E,W))
 switchframe(homescreenframe)
+
 #SETTINGS SCREEN CONFIGURATION
 settingsframe.rowconfigure((0,1,2,3),weight=1)
 settingsframe.columnconfigure((0,1,2),weight=1)
 settingsframe.configure(bg=basebgcolour,width=750,height=300)
 settingsframe.grid(row=0,column=0,sticky=(N,S,E,W))
+
 #ROOT CONFIGURATION
 root.rowconfigure((0),weight=1)
 root.columnconfigure((0),weight=1)
