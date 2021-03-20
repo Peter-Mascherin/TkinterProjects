@@ -87,10 +87,23 @@ def setimage():
     stationimage.configure(file=stationimagestore[channelnumber])
 
 def sendemail():
-    emailcontentraw = emailentrybox.get(0.0,200.0).strip()
-    theuser = usernameentry.get()
+    emailcontent = emailentrybox.get(0.0,200.0).strip()
+    emailaddress = usernameentry.get()
     thepass = passwordentry.get()
-    print(emailcontentraw + " " + theuser + " " + thepass)
+    try:
+        with smtplib.SMTP('smtp.gmail.com',587) as smtp:
+            smtp.ehlo()
+            smtp.starttls()
+            smtp.ehlo()
+            smtp.login(emailaddress,thepass)
+
+            subject = "Python Internet Radio - Station Suggestion"
+            body = emailcontent
+            msg = f"Subject: {subject}\n\n{body}"
+
+            smtp.sendmail(emailaddress,"pe.mascherin@gmail.com",msg)
+    except:
+        messagebox.showerror("Email Error","There was an error with either the email address, your password, or your connection. Please check to make sure all of correct and working")
     
 #JSON DATA GRAB
 datad = json.loads(rad.urls) #loads the JSON radiolist info into datad
@@ -138,8 +151,8 @@ suggestionsmessage = tk.Message(suggestionframe,text=suggestionsmessagetext,bg=b
 usernamelabelframe = tk.LabelFrame(suggestionframe,text="Email Address",width=100,height=40,fg=statustextcolour,bg=basebgcolour,bd=0)
 passwordlabelframe = tk.LabelFrame(suggestionframe,text="Password",width=100,height=40,fg=statustextcolour,bg=basebgcolour,bd=0)
 emailboxframe = tk.LabelFrame(suggestionframe,text="Email Content",width=130,height=40,fg=statustextcolour,bg=basebgcolour,bd=0)
-usernameentry = tk.Entry(usernamelabelframe,bg=entryboxcolour,fg=statustextcolour,insertbackground=statustextcolour,font=suggestionfont,bd=0)
-passwordentry = tk.Entry(passwordlabelframe,show="*",bg=entryboxcolour,fg=statustextcolour,insertbackground=statustextcolour,font=suggestionfont,bd=0)
+usernameentry = tk.Entry(usernamelabelframe,bg=entryboxcolour,fg=statustextcolour,insertbackground=statustextcolour,font=suggestionfont,bd=0,width=30)
+passwordentry = tk.Entry(passwordlabelframe,show="*",bg=entryboxcolour,fg=statustextcolour,insertbackground=statustextcolour,font=suggestionfont,bd=0,width=30)
 emailentrybox = tk.Text(emailboxframe,fg=statustextcolour,bg=entryboxcolour,insertbackground=statustextcolour,width=30,height=3,font=suggestionfont,bd=0)
 submitemailbutton = tk.Button(suggestionframe,text="Send!",bg=basebgcolour,fg=statustextcolour,activebackground=basebgcolour,activeforeground=statustextcolour,command=lambda: sendemail(),bd=0,font=statusfont)
 
