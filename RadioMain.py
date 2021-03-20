@@ -4,10 +4,9 @@
 import tkinter as tk
 from tkinter.font import *
 from tkinter.constants import *
-from tkinter import Image, messagebox
+from tkinter import messagebox
 import vlc # install this module using this: pip install python-vlc 
 #(you also need the 64-bit version of VLC installed which can be downloaded here https://www.videolan.org/vlc/download-windows.html)
-import time
 import json
 import smtplib
 import RadioResources.radiostationinfo as rad
@@ -44,7 +43,7 @@ def pausemedia():
 
 # playmedia sets sets the audio into MediaPlayer variable, 
 # changes the radioname and statustext labels to current stations and current status(playing,paused,stopped)
-# and then plays the media and also displays an error message if stream is revoked (print statement for debugging)
+# and then plays the media and also displays an error message if stream is revoked 
 def playmedia():
     player.set_media(theaudio)
     rnamestring = str(stationstore[channelnumber])
@@ -55,7 +54,7 @@ def playmedia():
     playcheck = player.play()
     if(playcheck == -1):
         messagebox.showerror("Playback Error","This probably happened due to a access revoked stream, wait a minute or so and click play again, or restart the app after waiting")
-    #debugchecker()
+    
 
 # controls the volume   
 def volumecontrol(volume):
@@ -83,25 +82,28 @@ def setupmedia(channelnumber):
     theaudio.release()
     theaudio = vlc.Media(urlstore[channelnumber])
 
+# changes the image of the radio station as you scroll through back and forth
 def setimage():
     stationimage.configure(file=stationimagestore[channelnumber])
 
+# email function used on suggestions page to send suggestions for radio stations through gmail
 def sendemail():
+    #grabs content of entry boxes (email, pass, and content)
     emailcontent = emailentrybox.get(0.0,200.0).strip()
     emailaddress = usernameentry.get()
     thepass = passwordentry.get()
-    try:
-        with smtplib.SMTP('smtp.gmail.com',587) as smtp:
+    try: #error catch to catch if user made a mistake with password or email or connection and displays error message
+        with smtplib.SMTP('smtp.gmail.com',587) as smtp: #establishes an smtp connection on port 587
             smtp.ehlo()
-            smtp.starttls()
+            smtp.starttls() 
             smtp.ehlo()
-            smtp.login(emailaddress,thepass)
+            smtp.login(emailaddress,thepass) #starts smtp session and logs in with users credentials
 
             subject = "Python Internet Radio - Station Suggestion"
             body = emailcontent
             msg = f"Subject: {subject}\n\n{body}"
 
-            smtp.sendmail(emailaddress,"pe.mascherin@gmail.com",msg)
+            smtp.sendmail(emailaddress,"pe.mascherin@gmail.com",msg) #sends email to me
     except:
         messagebox.showerror("Email Error","There was an error with either the email address, your password, or your connection. Please check to make sure all of correct and working")
     
@@ -115,8 +117,8 @@ for url in datad['stations']: #loops through the 'stations' object in datad JSON
     urlstore.append(url['radiourl']) #appends the radio station urls to urlstore
     stationstore.append(url['radioname']) #appends the radio station names to stationstore
     stationimagestore.append(url['stationimage']) #appends the radio station logo to stationimagestore
-textblobjson = json.loads(rad.suggesiontext)
-suggestionsmessagetext = textblobjson['textblob']
+textblobjson = json.loads(rad.suggesiontext) #loads suggestionpagemessage JSON list
+suggestionsmessagetext = textblobjson['textblob'] 
 
 
 #WIDGET DECLARATION
