@@ -16,6 +16,7 @@ import RadioResources.radiostationinfo as rad
 basebgcolour = "#1A1A1A"
 stationtextcolour = "#1ED760"
 statustextcolour = "#1ED760"
+entryboxcolour = "#222222"
 
 
 
@@ -84,20 +85,42 @@ def setupmedia(channelnumber):
 
 def setimage():
     stationimage.configure(file=stationimagestore[channelnumber])
+
+def sendemail():
+    emailcontentraw = emailentrybox.get(0.0,200.0).strip()
+    theuser = usernameentry.get()
+    thepass = passwordentry.get()
+    print(emailcontentraw + " " + theuser + " " + thepass)
     
+#JSON DATA GRAB
+datad = json.loads(rad.urls) #loads the JSON radiolist info into datad
+channelnumber = 0
+urlstore = [] #the array of urls for radio stations
+stationstore = [] #the array of radio names for the radio stations
+stationimagestore = []
+for url in datad['stations']: #loops through the 'stations' object in datad JSON
+    urlstore.append(url['radiourl']) #appends the radio station urls to urlstore
+    stationstore.append(url['radioname']) #appends the radio station names to stationstore
+    stationimagestore.append(url['stationimage']) #appends the radio station logo to stationimagestore
+textblobjson = json.loads(rad.suggesiontext)
+suggestionsmessagetext = textblobjson['textblob']
+
 
 #WIDGET DECLARATION
 root = tk.Tk()
 homescreenframe = tk.Frame(root)
-settingsframe = tk.Frame(root)
+suggestionframe = tk.Frame(root)
 fowardimage = tk.PhotoImage(file="RadioResources/fowardfinal.png")
 backimage = tk.PhotoImage(file="RadioResources/backfinal.png")
 stopimage = tk.PhotoImage(file="RadioResources/stopfinal.png")
 pauseimage = tk.PhotoImage(file="RadioResources/pausefinal.png")
 playimage = tk.PhotoImage(file="RadioResources/playfinal.png")
+suggestionimage = tk.PhotoImage(file="RadioResources/sbubble2.png")
+homebuttonimage = tk.PhotoImage(file="RadioResources/homebutton.png")
 stationimage = tk.PhotoImage()
 stationfont = Font(family="Bahnschrift SemiBold",size=36)
 statusfont = Font(family="Bahnschrift SemiBold",size=12)
+suggestionfont = Font(family="Bahnschrift SemiBold",size=10)
 playbutton = tk.Button(homescreenframe,image=playimage,command=lambda:playmedia(),bg=basebgcolour,activebackground=basebgcolour,height=50,bd=0)
 pausebutton = tk.Button(homescreenframe,image=pauseimage,command=lambda:pausemedia(),bg=basebgcolour,activebackground=basebgcolour,height=50,bd=0)
 stopbutton = tk.Button(homescreenframe,image=stopimage,command=lambda:stopmedia(),bg=basebgcolour,activebackground=basebgcolour,height=50,bd=0)
@@ -106,10 +129,19 @@ previousbutton = tk.Button(homescreenframe,image=backimage,command=lambda:switch
 volumeslider = tk.Scale(homescreenframe,from_=0,to=100,tickinterval=0,orient=HORIZONTAL,label="Volume",bg=basebgcolour,fg=stationtextcolour,command=volumecontrol)
 radionametext = tk.Label(homescreenframe,text="Python Internet Radio",font=stationfont,fg=stationtextcolour,bg=basebgcolour)
 statustext = tk.Label(homescreenframe,text="Ready to Play",font=statusfont,fg=statustextcolour,bg=basebgcolour)
-homefromsettings = tk.Button(settingsframe,text="go home",command=lambda:switchframe(homescreenframe))
-settingsbutton = tk.Button(homescreenframe,text="go settings",command=lambda:switchframe(settingsframe),height=4,bd=1)
-stopfromsettings = tk.Button(settingsframe,text="stopmusic plz thx",command=lambda:stopmedia())
 stationimagelabel = tk.Label(homescreenframe,bg=basebgcolour,image=stationimage)
+homefromsuggestion = tk.Button(suggestionframe,bg=basebgcolour,activebackground=basebgcolour,command=lambda:switchframe(homescreenframe),bd=0,height=50,image=homebuttonimage)
+suggestionsbutton = tk.Button(homescreenframe,command=lambda:switchframe(suggestionframe),bg=basebgcolour,activebackground=basebgcolour,height=50,bd=0,image=suggestionimage)
+stopfromsuggestion = tk.Button(suggestionframe,bg=basebgcolour,activebackground=basebgcolour,image=stopimage,height=50,command=lambda:stopmedia(),bd=0)
+suggestionstitle = tk.Label(suggestionframe,text="Suggestions",font=stationfont,bg=basebgcolour,fg=stationtextcolour)
+suggestionsmessage = tk.Message(suggestionframe,text=suggestionsmessagetext,bg=basebgcolour,fg=stationtextcolour,font=suggestionfont,width=300)
+usernamelabelframe = tk.LabelFrame(suggestionframe,text="Email Address",width=100,height=40,fg=statustextcolour,bg=basebgcolour,bd=0)
+passwordlabelframe = tk.LabelFrame(suggestionframe,text="Password",width=100,height=40,fg=statustextcolour,bg=basebgcolour,bd=0)
+emailboxframe = tk.LabelFrame(suggestionframe,text="Email Content",width=130,height=40,fg=statustextcolour,bg=basebgcolour,bd=0)
+usernameentry = tk.Entry(usernamelabelframe,bg=entryboxcolour,fg=statustextcolour,insertbackground=statustextcolour,font=suggestionfont,bd=0)
+passwordentry = tk.Entry(passwordlabelframe,show="*",bg=entryboxcolour,fg=statustextcolour,insertbackground=statustextcolour,font=suggestionfont,bd=0)
+emailentrybox = tk.Text(emailboxframe,fg=statustextcolour,bg=entryboxcolour,insertbackground=statustextcolour,width=30,height=3,font=suggestionfont,bd=0)
+submitemailbutton = tk.Button(suggestionframe,text="Send!",bg=basebgcolour,fg=statustextcolour,activebackground=basebgcolour,activeforeground=statustextcolour,command=lambda: sendemail(),bd=0,font=statusfont)
 
 
 #WIDGET PLACEMENT
@@ -121,23 +153,19 @@ previousbutton.grid(row=2,column=0,sticky=(E,W),pady=25,padx=6,rowspan=3)
 volumeslider.grid(row=2,column=1,sticky=(N,E,W),padx=5,pady=50,rowspan=2)
 radionametext.grid(row=0,column=0,sticky=(N,W,S),padx=10,pady=0,columnspan=3)
 statustext.grid(row=1,column=0,sticky=(N,W),pady=0,padx=15,columnspan=3)
-homefromsettings.grid(row=1,column=1,sticky=(N,S,E,W))
-stopfromsettings.grid(row=2,column=2,sticky=(S,E))
 stationimagelabel.grid(row=0,column=2,sticky=(N,E,W),pady=10,rowspan=3)
-#settingsbutton.grid(row=1,column=2,sticky=(N,E,W),rowspan=2)
-
-
-#JSON DATA GRAB
-datad = json.loads(rad.urls) #loads the JSON list into datad
-channelnumber = 0
-urlstore = [] #the array of urls for radio stations
-stationstore = [] #the array of radio names for the radio stations
-stationimagestore = []
-for url in datad['stations']: #loops through the 'stations' object in datad JSON
-    urlstore.append(url['radiourl']) #appends the radio station urls to urlstore
-    stationstore.append(url['radioname']) #appends the radio station names to stationstore
-    stationimagestore.append(url['stationimage']) #appends the radio station logo to stationimagestore
-
+suggestionsbutton.grid(row=1,column=2,sticky=(S,E,W),rowspan=2)
+homefromsuggestion.grid(row=1,column=2,sticky=(N,S,E,W))
+stopfromsuggestion.grid(row=2,column=2,sticky=(N,S,E,W))
+suggestionstitle.grid(row=0,column=0,sticky=(N,W),padx=10,pady=5,columnspan=3)
+suggestionsmessage.grid(row=0,column=2,sticky=(E,N,W),pady=10,padx=5,rowspan=3)
+usernamelabelframe.grid(row=1,column=0,sticky=(E,W),pady=10,padx=10)
+passwordlabelframe.grid(row=2,column=0,sticky=(N,E,W),padx=10,pady=10)
+usernameentry.grid(row=0,column=0)
+passwordentry.grid(row=0,column=0)
+emailboxframe.grid(row=1,column=1,sticky=(S,E,W))
+emailentrybox.grid(row=0,column=0)
+submitemailbutton.grid(row=2,column=1,sticky=(N,W),padx=5,pady=5)
 
 #VLC MEDIA CONFIGURATION 
 theaudio = vlc.Media(urlstore[channelnumber])
@@ -157,10 +185,10 @@ homescreenframe.grid(row=0,column=0,sticky=(N,S,E,W))
 switchframe(homescreenframe)
 
 #SETTINGS SCREEN CONFIGURATION
-settingsframe.rowconfigure((0,1,2,3),weight=1)
-settingsframe.columnconfigure((0,1,2),weight=1)
-settingsframe.configure(bg=basebgcolour,width=750,height=300)
-settingsframe.grid(row=0,column=0,sticky=(N,S,E,W))
+suggestionframe.rowconfigure((0,1,2,3),weight=1)
+suggestionframe.columnconfigure((0,1,2),weight=1)
+suggestionframe.configure(bg=basebgcolour,width=750,height=300)
+suggestionframe.grid(row=0,column=0,sticky=(N,S,E,W))
 
 #ROOT CONFIGURATION
 root.rowconfigure((0),weight=1)

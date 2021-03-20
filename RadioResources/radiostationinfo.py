@@ -46,9 +46,17 @@ urls = '''{
             "radiourl": "http://pulseedm.cdnstream1.com:8124/1373_128",
             "radioname":    "Pulse EDM",
             "stationimage": "RadioResources/pulseedm.png"
+        },
+        {
+            "radiourl": "http://strm112.1.fm/atr_mobile_mp3",
+            "radioname":    "1FM Trance Radio",
+            "stationimage": "RadioResources/tranceamsterdam.png"
         }
        
 
     ]
 }'''
 
+suggesiontext = '''{
+    "textblob": "Your currently on the suggestions page, from here you can suggest radio stations. Note: To enable suggestions you must switch 'Allow less secure apps' to On in the Google Account Control page"
+}'''
