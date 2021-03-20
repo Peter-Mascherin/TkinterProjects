@@ -6,7 +6,7 @@ from tkinter.font import *
 from tkinter.constants import *
 from tkinter import Image, messagebox
 import vlc # install this module using this: pip install python-vlc 
-#(you also need the 64-bit version of VLC installed which can be downloaded here https://get.videolan.org/vlc/3.0.11/win64/vlc-3.0.11-win64.exe)
+#(you also need the 64-bit version of VLC installed which can be downloaded here https://www.videolan.org/vlc/download-windows.html)
 import time
 import json
 import smtplib
