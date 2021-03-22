@@ -18,8 +18,6 @@ stationtextcolour = "#1ED760"
 statustextcolour = "#1ED760"
 entryboxcolour = "#222222"
 
-
-
 #METHODS
 # simple print debug checking for checking variables on play , stop , and switch
 def debugchecker():
@@ -138,27 +136,27 @@ stationimage = tk.PhotoImage()
 stationfont = Font(family="Bahnschrift SemiBold",size=36)
 statusfont = Font(family="Bahnschrift SemiBold",size=12)
 suggestionfont = Font(family="Bahnschrift SemiBold",size=10)
-playbutton = tk.Button(homescreenframe,image=playimage,command=lambda:playmedia(),bg=basebgcolour,activebackground=basebgcolour,height=50,bd=0)
-pausebutton = tk.Button(homescreenframe,image=pauseimage,command=lambda:pausemedia(),bg=basebgcolour,activebackground=basebgcolour,height=50,bd=0)
-stopbutton = tk.Button(homescreenframe,image=stopimage,command=lambda:stopmedia(),bg=basebgcolour,activebackground=basebgcolour,height=50,bd=0)
-nextbutton = tk.Button(homescreenframe,image=fowardimage,command=lambda:switchstation(1),bg=basebgcolour,activebackground=basebgcolour,height=50,bd=0)
-previousbutton = tk.Button(homescreenframe,image=backimage,command=lambda:switchstation(-1),bg=basebgcolour,activebackground=basebgcolour,height=50,bd=0)
-volumeslider = tk.Scale(homescreenframe,from_=0,to=100,tickinterval=0,orient=HORIZONTAL,label="Volume",bg=basebgcolour,fg=stationtextcolour,command=volumecontrol)
-radionametext = tk.Label(homescreenframe,text="Python Internet Radio",font=stationfont,fg=stationtextcolour,bg=basebgcolour)
-statustext = tk.Label(homescreenframe,text="Ready to Play",font=statusfont,fg=statustextcolour,bg=basebgcolour)
-stationimagelabel = tk.Label(homescreenframe,bg=basebgcolour,image=stationimage)
-homefromsuggestion = tk.Button(suggestionframe,bg=basebgcolour,activebackground=basebgcolour,command=lambda:switchframe(homescreenframe),bd=0,height=50,image=homebuttonimage)
-suggestionsbutton = tk.Button(homescreenframe,command=lambda:switchframe(suggestionframe),bg=basebgcolour,activebackground=basebgcolour,height=50,bd=0,image=suggestionimage)
-stopfromsuggestion = tk.Button(suggestionframe,bg=basebgcolour,activebackground=basebgcolour,image=stopimage,height=50,command=lambda:stopmedia(),bd=0)
-suggestionstitle = tk.Label(suggestionframe,text="Suggestions",font=stationfont,bg=basebgcolour,fg=stationtextcolour)
-suggestionsmessage = tk.Message(suggestionframe,text=suggestionsmessagetext,bg=basebgcolour,fg=stationtextcolour,font=suggestionfont,width=300)
-usernamelabelframe = tk.LabelFrame(suggestionframe,text="Email Address",width=100,height=40,fg=statustextcolour,bg=basebgcolour,bd=0)
-passwordlabelframe = tk.LabelFrame(suggestionframe,text="Password",width=100,height=40,fg=statustextcolour,bg=basebgcolour,bd=0)
-emailboxframe = tk.LabelFrame(suggestionframe,text="Email Content",width=130,height=40,fg=statustextcolour,bg=basebgcolour,bd=0)
-usernameentry = tk.Entry(usernamelabelframe,bg=entryboxcolour,fg=statustextcolour,insertbackground=statustextcolour,font=suggestionfont,bd=0,width=30)
-passwordentry = tk.Entry(passwordlabelframe,show="*",bg=entryboxcolour,fg=statustextcolour,insertbackground=statustextcolour,font=suggestionfont,bd=0,width=30)
-emailentrybox = tk.Text(emailboxframe,fg=statustextcolour,bg=entryboxcolour,insertbackground=statustextcolour,width=30,height=3,font=suggestionfont,bd=0)
-submitemailbutton = tk.Button(suggestionframe,text="Send!",bg=basebgcolour,fg=statustextcolour,activebackground=basebgcolour,activeforeground=statustextcolour,command=lambda: sendemail(),bd=0,font=statusfont)
+playbutton = tk.Button(homescreenframe,image=playimage,command=lambda:playmedia(),bg=basebgcolour,activebackground=basebgcolour,height=50,bd=0,highlightthickness=0)
+pausebutton = tk.Button(homescreenframe,image=pauseimage,command=lambda:pausemedia(),bg=basebgcolour,activebackground=basebgcolour,height=50,bd=0,highlightthickness=0)
+stopbutton = tk.Button(homescreenframe,image=stopimage,command=lambda:stopmedia(),bg=basebgcolour,activebackground=basebgcolour,height=50,bd=0,highlightthickness=0)
+nextbutton = tk.Button(homescreenframe,image=fowardimage,command=lambda:switchstation(1),bg=basebgcolour,activebackground=basebgcolour,height=50,bd=0,highlightthickness=0)
+previousbutton = tk.Button(homescreenframe,image=backimage,command=lambda:switchstation(-1),bg=basebgcolour,activebackground=basebgcolour,height=50,bd=0,highlightthickness=0)
+volumeslider = tk.Scale(homescreenframe,from_=0,to=100,tickinterval=0,orient=HORIZONTAL,label="Volume",bg=basebgcolour,fg=stationtextcolour,command=volumecontrol,highlightthickness=0)
+radionametext = tk.Label(homescreenframe,text="Python Internet Radio",font=stationfont,fg=stationtextcolour,bg=basebgcolour,highlightthickness=0)
+statustext = tk.Label(homescreenframe,text="Ready to Play",font=statusfont,fg=statustextcolour,bg=basebgcolour,highlightthickness=0)
+stationimagelabel = tk.Label(homescreenframe,bg=basebgcolour,image=stationimage,highlightthickness=0)
+homefromsuggestion = tk.Button(suggestionframe,bg=basebgcolour,activebackground=basebgcolour,command=lambda:switchframe(homescreenframe),bd=0,height=50,image=homebuttonimage,highlightthickness=0)
+suggestionsbutton = tk.Button(homescreenframe,command=lambda:switchframe(suggestionframe),bg=basebgcolour,activebackground=basebgcolour,height=50,bd=0,image=suggestionimage,highlightthickness=0)
+stopfromsuggestion = tk.Button(suggestionframe,bg=basebgcolour,activebackground=basebgcolour,image=stopimage,height=50,command=lambda:stopmedia(),bd=0,highlightthickness=0)
+suggestionstitle = tk.Label(suggestionframe,text="Suggestions",font=stationfont,bg=basebgcolour,fg=stationtextcolour,highlightthickness=0)
+suggestionsmessage = tk.Message(suggestionframe,text=suggestionsmessagetext,bg=basebgcolour,fg=stationtextcolour,font=suggestionfont,width=300,highlightthickness=0)
+usernamelabelframe = tk.LabelFrame(suggestionframe,text="Email Address",width=100,height=40,fg=statustextcolour,bg=basebgcolour,bd=0,highlightthickness=0)
+passwordlabelframe = tk.LabelFrame(suggestionframe,text="Password",width=100,height=40,fg=statustextcolour,bg=basebgcolour,bd=0,highlightthickness=0)
+emailboxframe = tk.LabelFrame(suggestionframe,text="Email Content",width=130,height=40,fg=statustextcolour,bg=basebgcolour,bd=0,highlightthickness=0)
+usernameentry = tk.Entry(usernamelabelframe,bg=entryboxcolour,fg=statustextcolour,insertbackground=statustextcolour,font=suggestionfont,bd=0,width=30,highlightthickness=0)
+passwordentry = tk.Entry(passwordlabelframe,show="*",bg=entryboxcolour,fg=statustextcolour,insertbackground=statustextcolour,font=suggestionfont,bd=0,width=30,highlightthickness=0)
+emailentrybox = tk.Text(emailboxframe,fg=statustextcolour,bg=entryboxcolour,insertbackground=statustextcolour,width=30,height=3,font=suggestionfont,bd=0,highlightthickness=0)
+submitemailbutton = tk.Button(suggestionframe,text="Send!",bg=basebgcolour,fg=statustextcolour,activebackground=basebgcolour,activeforeground=statustextcolour,command=lambda: sendemail(),bd=0,highlightthickness=0,font=statusfont)
 
 
 #WIDGET PLACEMENT
