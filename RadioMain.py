@@ -104,6 +104,7 @@ def sendemail():
             msg = f"Subject: {subject}\n\n{body}"
 
             smtp.sendmail(emailaddress,"pe.mascherin@gmail.com",msg) #sends email to me
+            messagebox.showinfo("Success!","Your email has been successfully sent")
     except:
         messagebox.showerror("Email Error","There was an error with either the email address, your password, or your connection. Please check to make sure all of correct and working")
     
