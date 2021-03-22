@@ -149,7 +149,11 @@ homefromsuggestion = tk.Button(suggestionframe,bg=basebgcolour,activebackground=
 suggestionsbutton = tk.Button(homescreenframe,command=lambda:switchframe(suggestionframe),bg=basebgcolour,activebackground=basebgcolour,height=50,bd=0,image=suggestionimage,highlightthickness=0)
 stopfromsuggestion = tk.Button(suggestionframe,bg=basebgcolour,activebackground=basebgcolour,image=stopimage,height=50,command=lambda:stopmedia(),bd=0,highlightthickness=0)
 suggestionstitle = tk.Label(suggestionframe,text="Suggestions",font=stationfont,bg=basebgcolour,fg=stationtextcolour,highlightthickness=0)
-suggestionsmessage = tk.Message(suggestionframe,text=suggestionsmessagetext,bg=basebgcolour,fg=stationtextcolour,font=suggestionfont,width=300,highlightthickness=0)
+if os.name == 'nt':
+    suggestionsmessage = tk.Message(suggestionframe,text=suggestionsmessagetext,bg=basebgcolour,fg=stationtextcolour,font=suggestionfont,width=300,highlightthickness=0)
+else:
+    suggestionsmessage = tk.Message(suggestionframe,text=suggestionsmessagetext,bg=basebgcolour,fg=stationtextcolour,font=suggestionfont,width=275,highlightthickness=0)
+
 usernamelabelframe = tk.LabelFrame(suggestionframe,text="Email Address",width=100,height=40,fg=statustextcolour,bg=basebgcolour,bd=0,highlightthickness=0)
 passwordlabelframe = tk.LabelFrame(suggestionframe,text="Password",width=100,height=40,fg=statustextcolour,bg=basebgcolour,bd=0,highlightthickness=0)
 emailboxframe = tk.LabelFrame(suggestionframe,text="Email Content",width=130,height=40,fg=statustextcolour,bg=basebgcolour,bd=0,highlightthickness=0)
