@@ -9,6 +9,7 @@ import vlc # install this module using this: pip install python-vlc
 #(you also need the 64-bit version of VLC installed which can be downloaded here https://www.videolan.org/vlc/download-windows.html)
 import json
 import smtplib
+import os
 import RadioResources.radiostationinfo as rad
 
 #BASE COLOURS OF APP
@@ -211,7 +212,11 @@ root.rowconfigure((0),weight=1)
 root.columnconfigure((0),weight=1)
 root.configure(bg=basebgcolour)
 root.resizable(FALSE,FALSE)
-root.iconbitmap(r"RadioResources\radioicon.ico")
+if os.name == 'nt':
+    root.iconbitmap(r"RadioResources\radioicon.ico")
+else:
+    img = tk.PhotoImage(file='RadioResources/radio.png')
+    root.tk.call('wm', 'iconphoto', root._w, img)
 root.title("Internet Radio")
 root.geometry("750x300+400+300")
 root.mainloop()
